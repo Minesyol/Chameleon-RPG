@@ -1,0 +1,4 @@
+name: ChameleonRPG
+version: '${project.version}'
+main: me.keegan.chameleon_rpg.ChameleonRPG
+api-version: '1.21'
