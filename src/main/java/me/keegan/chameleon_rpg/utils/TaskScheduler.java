@@ -19,7 +19,7 @@ public final class TaskScheduler {
         }
     }
 
-    public static void scheduleTaskTimer(Runnable runnable, long ticks, long period, boolean async) {
+    public static BukkitRunnable scheduleTaskTimer(Runnable runnable, long ticks, long period, boolean async) {
         BukkitRunnable bukkitRunnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -32,5 +32,7 @@ public final class TaskScheduler {
         }else{
             bukkitRunnable.runTaskTimerAsynchronously(ChameleonRPG.getPlugin(), ticks, period);
         }
+
+        return bukkitRunnable;
     }
 }

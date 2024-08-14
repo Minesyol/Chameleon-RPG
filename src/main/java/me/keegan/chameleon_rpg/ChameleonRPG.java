@@ -1,8 +1,12 @@
 package me.keegan.chameleon_rpg;
 
+import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.registeries.Registries;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Arrays;
 
 public final class ChameleonRPG extends JavaPlugin {
     private static final String MAIN_DIR = "me.keegan.chameleon_rpg";
@@ -16,17 +20,26 @@ public final class ChameleonRPG extends JavaPlugin {
         return MAIN_DIR;
     }
 
+    public static void info(String info) {
+        plugin.getLogger().info(info);
+    }
+
     @Override
     public void onEnable() {
         plugin = this;
 
-        Registries.registerReflections(Registries.Scanner.SUBTYPES,
-                Listener.class,
-                (registry -> getServer().getPluginManager().registerEvents(registry, this)));
+        // register listeners
+        Registries.registerReflections(Registries.Scanner.SUBTYPES, Listener.class,
+                registry -> getServer().getPluginManager().registerEvents(registry, this));
+
+        // add recipes
+        Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonRecipe.class,
+                registry -> Arrays.stream(registry.getChameleonRecipes())
+                        .forEach(chameleonRecipe -> Bukkit.addRecipe(chameleonRecipe.getRecipe())));
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
     }
 }

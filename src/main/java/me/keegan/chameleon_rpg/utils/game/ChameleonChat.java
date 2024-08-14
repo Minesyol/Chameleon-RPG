@@ -1,10 +1,10 @@
-package me.keegan.chameleon_rpg.utils;
+package me.keegan.chameleon_rpg.utils.game;
 
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class ChameleonChat {
+public final class ChameleonChat {
     private static final String MESSAGE_PREFIX = ChatColor.DARK_GREEN + "Chameleon>" + ChatColor.GRAY;
 
     private static String addMessagePrefix(String message) {
