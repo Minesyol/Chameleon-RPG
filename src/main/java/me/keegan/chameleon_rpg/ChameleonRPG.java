@@ -28,6 +28,10 @@ public final class ChameleonRPG extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
+
         // register listeners
         Registries.registerReflections(Registries.Scanner.SUBTYPES, Listener.class,
                 registry -> getServer().getPluginManager().registerEvents(registry, this));

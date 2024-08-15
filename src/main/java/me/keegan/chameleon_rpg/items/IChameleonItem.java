@@ -1,7 +1,7 @@
 package me.keegan.chameleon_rpg.items;
 
-import org.bukkit.inventory.ItemStack;
+import me.keegan.chameleon_rpg.utils.namespacedkeys.IChameleonNamespaced;
 
-public interface IChameleonItem {
-    ItemStack getItemStack();
+public interface IChameleonItem extends IChameleonNamespaced<String> {
+    ChameleonItemStackWrapper createItemStackWrapper();
 }
