@@ -2,8 +2,10 @@ package me.keegan.chameleon_rpg.items.food;
 
 import me.keegan.chameleon_rpg.items.ChameleonItemStackWrapper;
 import me.keegan.chameleon_rpg.items.IChameleonItem;
+import me.keegan.chameleon_rpg.player.ChameleonPlayer;
+import me.keegan.chameleon_rpg.utils.FileUtils;
+import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonIngredientWrapper;
 import me.keegan.chameleon_rpg.utils.namespacedkeys.ChameleonNamespacedKeys;
-import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonIngredient;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipeShape;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
@@ -32,7 +34,7 @@ public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Li
                 itemConsumed.getItemMeta().getPersistentDataContainer());
         if (value == null || !value.equals(getNamespacedValue())) { return; }
 
-
+        FileUtils.saveInFile("data", "player_data.json", new ChameleonPlayer(), true);
     }
 
     @Override
@@ -66,8 +68,8 @@ public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Li
                         .namespaceKey("Chameleon_stew")
                         .shaped()
                         .shape(new ChameleonRecipeShape("LLL", "LSL", "LLL"))
-                        .mapIngredient('L', new ChameleonIngredient<>(Material.LIME_DYE))
-                        .mapIngredient('S', new ChameleonIngredient<>(Material.MUSHROOM_STEW))
+                        .mapIngredient('L', new ChameleonIngredientWrapper<>(Material.LIME_DYE))
+                        .mapIngredient('S', new ChameleonIngredientWrapper<>(Material.MUSHROOM_STEW))
                         .next()
                         .result(createItemStackWrapper().getItemStack())
                         .build()};

@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public final class ChameleonRecipe {
-    private final HashMap<Character, ChameleonIngredient<?>> ingredientMap;
+    private final HashMap<Character, ChameleonIngredientWrapper<?>> ingredientMap;
     private final List<Material> ingredients;
     private final ChameleonRecipeShape shape;
     private final ItemStack recipeResult;
     private final NamespacedKey namespacedKey;
 
-    private ChameleonRecipe(ChameleonRecipeShape shape, List<Material> ingredients, HashMap<Character, ChameleonIngredient<?>> ingredientMap, ItemStack recipeResult, NamespacedKey namespacedKey) {
+    private ChameleonRecipe(ChameleonRecipeShape shape, List<Material> ingredients, HashMap<Character, ChameleonIngredientWrapper<?>> ingredientMap, ItemStack recipeResult, NamespacedKey namespacedKey) {
         this.shape = shape;
         this.ingredients = ingredients;
         this.ingredientMap = ingredientMap;
@@ -62,7 +62,7 @@ public final class ChameleonRecipe {
 
     public interface ShapedRecipe {
         ShapedRecipe shape(ChameleonRecipeShape shape);
-        <T> ShapedRecipe mapIngredient(char ingredientLetter, ChameleonIngredient<T> chameleonIngredient);
+        <T> ShapedRecipe mapIngredient(char ingredientLetter, ChameleonIngredientWrapper<T> chameleonIngredientWrapper);
         RecipeResult next();
     }
 
@@ -80,7 +80,7 @@ public final class ChameleonRecipe {
     }
 
     public static class Builder implements RecipeNamespaceKey, RecipeType, ShapedRecipe, ShapelessRecipe, RecipeResult, BuildRecipe {
-        private final HashMap<Character, ChameleonIngredient<?>> ingredientMap = new HashMap<>();
+        private final HashMap<Character, ChameleonIngredientWrapper<?>> ingredientMap = new HashMap<>();
         private final List<Material> ingredients = new ArrayList<>();
         private ChameleonRecipeShape shape;
         private ItemStack recipeResult;
@@ -109,7 +109,7 @@ public final class ChameleonRecipe {
         }
 
         @Override
-        public <T> ShapedRecipe mapIngredient(char ingredientLetter, ChameleonIngredient<T> chameleonIngredient) {
+        public <T> ShapedRecipe mapIngredient(char ingredientLetter, ChameleonIngredientWrapper<T> chameleonIngredient) {
             ingredientMap.put(ingredientLetter, chameleonIngredient);
             return this;
         }

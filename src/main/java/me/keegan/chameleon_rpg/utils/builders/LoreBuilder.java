@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LoreBuilder {
+public final class LoreBuilder {
     private final List<String> lore = new ArrayList<>(Collections.singletonList(""));
     private final List<String[]> variables = new ArrayList<>();
 
