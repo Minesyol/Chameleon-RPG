@@ -8,6 +8,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
+/**
+ * Files are saved in .json formats.
+ * Maybe in the future I'll learn SQLite JDBC
+ * and save data onto there.
+ */
+
 public final class ChameleonRPG extends JavaPlugin {
     private static final String MAIN_DIR = "me.keegan.chameleon_rpg";
     private static JavaPlugin plugin;
