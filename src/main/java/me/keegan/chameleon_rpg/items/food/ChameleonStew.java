@@ -3,9 +3,11 @@ package me.keegan.chameleon_rpg.items.food;
 import me.keegan.chameleon_rpg.items.ChameleonItemStackWrapper;
 import me.keegan.chameleon_rpg.items.IChameleonItem;
 import me.keegan.chameleon_rpg.player.ChameleonPlayer;
-import me.keegan.chameleon_rpg.utils.FileUtils;
+import me.keegan.chameleon_rpg.utils.tasks.TaskScheduler;
+import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
+import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonIngredientWrapper;
-import me.keegan.chameleon_rpg.utils.namespacedkeys.ChameleonNamespacedKeys;
+import me.keegan.chameleon_rpg.utils.game.namespacedkeys.ChameleonNamespacedKeys;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipeShape;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
@@ -34,7 +36,14 @@ public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Li
                 itemConsumed.getItemMeta().getPersistentDataContainer());
         if (value == null || !value.equals(getNamespacedValue())) { return; }
 
-        FileUtils.saveInFile("data", "player_data.json", new ChameleonPlayer(), true);
+        PlayerUtils.saveChameleonPlayerToFile(new ChameleonPlayer(e.getPlayer()));
+
+        TaskScheduler taskScheduler = TaskScheduler.createTaskQueue();
+        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 60, false);
+        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 10, false);
+        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 60, false);
+        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 0, false);
+        taskScheduler.runTasks();
     }
 
     @Override
