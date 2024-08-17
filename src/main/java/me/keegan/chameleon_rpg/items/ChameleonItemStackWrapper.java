@@ -1,6 +1,6 @@
 package me.keegan.chameleon_rpg.items;
 
-import me.keegan.chameleon_rpg.utils.namespacedkeys.ChameleonNamespacedKeys;
+import me.keegan.chameleon_rpg.utils.game.namespacedkeys.ChameleonNamespacedKeys;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
