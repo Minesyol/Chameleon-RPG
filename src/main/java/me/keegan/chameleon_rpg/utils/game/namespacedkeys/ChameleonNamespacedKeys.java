@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.namespacedkeys;
+package me.keegan.chameleon_rpg.utils.game.namespacedkeys;
 
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import org.bukkit.NamespacedKey;
