@@ -1,9 +1,43 @@
-package me.keegan.chameleon_rpg.utils;
+package me.keegan.chameleon_rpg.utils.tasks;
 
 import me.keegan.chameleon_rpg.ChameleonRPG;
+import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public final class TaskScheduler {
+    private final Queue<ChameleonTask> chameleonTaskQueue = new LinkedList<>();
+
+    private TaskScheduler() {}
+
+    public void runTasks() {
+        ChameleonTask chameleonTask = chameleonTaskQueue.poll();
+        if (chameleonTask == null) {
+            ChameleonChat.sendBroadcast("Finished with the chameleon task queue!");
+            return;
+        }
+
+        scheduleTask(chameleonTask.getBukkitRunnable(), chameleonTask.getTicks(), chameleonTask.isAsync());
+    }
+
+    public void addTask(Runnable runnable, long ticks, boolean async) {
+        chameleonTaskQueue.add(new ChameleonTask(new BukkitRunnable() {
+            @Override
+            public void run() {
+                runnable.run();
+                runTasks();
+            }
+        }, ticks, async));
+    }
+
+    // STATIC METHODS
+
+    public static TaskScheduler createTaskQueue() {
+        return new TaskScheduler();
+    }
+
     public static void scheduleTask(Runnable runnable, long ticks, boolean async) {
         BukkitRunnable bukkitRunnable = new BukkitRunnable() {
             @Override
