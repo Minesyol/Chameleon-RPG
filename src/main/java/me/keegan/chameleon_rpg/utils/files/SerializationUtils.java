@@ -1,10 +1,10 @@
-package me.keegan.chameleon_rpg.utils;
+package me.keegan.chameleon_rpg.utils.files;
 
 import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Base64;
 
-public class SerializationUtils {
+public final class SerializationUtils {
     public static String encodeToBase64(Serializable serializable) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
