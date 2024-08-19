@@ -2,7 +2,7 @@ package me.keegan.chameleon_rpg.utils.tasks;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class ChameleonTask {
+public final class ChameleonTask {
     private final BukkitRunnable bukkitRunnable;
     private final long ticks;
     private final long period;
