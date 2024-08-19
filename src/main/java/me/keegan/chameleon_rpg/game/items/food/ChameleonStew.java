@@ -1,8 +1,8 @@
-package me.keegan.chameleon_rpg.items.food;
+package me.keegan.chameleon_rpg.game.items.food;
 
-import me.keegan.chameleon_rpg.items.ChameleonItemStackWrapper;
-import me.keegan.chameleon_rpg.items.IChameleonItem;
-import me.keegan.chameleon_rpg.player.ChameleonPlayer;
+import me.keegan.chameleon_rpg.game.items.ChameleonItemStackWrapper;
+import me.keegan.chameleon_rpg.game.items.IChameleonItem;
+import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.tasks.TaskScheduler;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
@@ -13,6 +13,8 @@ import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipeShape;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -24,11 +26,13 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Listener {
     @EventHandler
     public void onPlayerItemConsume(PlayerItemConsumeEvent e) {
         ItemStack itemConsumed = e.getItem();
+        Player player = e.getPlayer();
 
         // we can cast null safely without throwing an exception
         String value = (String) ChameleonNamespacedKeys.getNamespacedValue(ChameleonNamespacedKeys.CHAMELEON_ITEMSTACK_KEY,
@@ -36,13 +40,24 @@ public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Li
                 itemConsumed.getItemMeta().getPersistentDataContainer());
         if (value == null || !value.equals(getNamespacedValue())) { return; }
 
-        PlayerUtils.saveChameleonPlayerToFile(new ChameleonPlayer(e.getPlayer()));
+        if (PlayerUtils.getChameleonPlayerFromFile(player) != null) {
+            e.setCancelled(true);
+            return;
+        }
+
+        PlayerUtils.addMaxHearts(player, 2);
+        PlayerUtils.saveChameleonPlayerToFile(new ChameleonPlayer(player));
+
+        Consumer<String> consumer = (string) -> {
+            ChameleonChat.sendMessage(player, string);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+        };
 
         TaskScheduler taskScheduler = TaskScheduler.createTaskQueue();
-        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 60, false);
-        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 10, false);
-        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 60, false);
-        taskScheduler.addTask(() -> ChameleonChat.sendBroadcast("sent"), 0, false);
+        taskScheduler.addTask(consumer, "Welcome to the Chameleon RPG.", 45, false);
+        taskScheduler.addTask(consumer, "Since you ate the Chameleon Stew,", 45, false);
+        taskScheduler.addTask(consumer, "You can start your adventure.", 45, false);
+        taskScheduler.addTask(consumer, "Good luck!", 65, false);
         taskScheduler.runTasks();
     }
 

@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.items;
+package me.keegan.chameleon_rpg.game.items;
 
 import me.keegan.chameleon_rpg.utils.game.namespacedkeys.ChameleonNamespacedKeys;
 import org.bukkit.inventory.ItemStack;
