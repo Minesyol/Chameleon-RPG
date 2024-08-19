@@ -1,8 +1,11 @@
 package me.keegan.chameleon_rpg;
 
+import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
+import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.registeries.Registries;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -50,6 +53,11 @@ public final class ChameleonRPG extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for (Player player : getServer().getOnlinePlayers()) {
+            ChameleonPlayer chameleonPlayer = PlayerUtils.getChameleonPlayerFromFile(player);
+            if (chameleonPlayer == null) { continue; }
 
+            PlayerUtils.saveChameleonPlayerToFile(chameleonPlayer);
+        }
     }
 }
