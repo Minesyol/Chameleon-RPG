@@ -1,10 +1,12 @@
 package me.keegan.chameleon_rpg.utils.registeries;
 
+import com.google.gson.Gson;
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Set;
 
 public final class Registries {
@@ -19,6 +21,10 @@ public final class Registries {
         public abstract <T> Set<Class<? extends T>> scanFor(Class<T> referenceClass);
     }
 
+    private static <T> boolean hasDefaultConstructor(Class<T> clazz) {
+        return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
+    }
+
     /**
      *
      * @param scanner Scanner to scan for
@@ -30,7 +36,7 @@ public final class Registries {
         for (Class<? extends T> clazz : scanner.scanFor(referenceClass)) {
             try {
                 if (clazz.equals(ChameleonRPG.class) || clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) { continue; }
-                registerConsumer.register(clazz.getDeclaredConstructor().newInstance());
+                registerConsumer.register(hasDefaultConstructor(clazz) ? clazz.getDeclaredConstructor().newInstance() : new Gson().fromJson("{}", clazz));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
