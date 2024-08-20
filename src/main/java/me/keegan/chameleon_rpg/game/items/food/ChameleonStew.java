@@ -3,7 +3,7 @@ package me.keegan.chameleon_rpg.game.items.food;
 import me.keegan.chameleon_rpg.game.items.ChameleonItemStackWrapper;
 import me.keegan.chameleon_rpg.game.items.IChameleonItem;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
-import me.keegan.chameleon_rpg.utils.tasks.TaskScheduler;
+import me.keegan.chameleon_rpg.utils.game.tasks.TaskScheduler;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonIngredientWrapper;
