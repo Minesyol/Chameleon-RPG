@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.registeries;
+package me.keegan.chameleon_rpg.utils.files.registeries;
 
 @FunctionalInterface
 public interface RegisterConsumer<T> {

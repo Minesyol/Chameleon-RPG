@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.registeries;
+package me.keegan.chameleon_rpg.utils.files.registeries;
 
 import com.google.gson.Gson;
 import me.keegan.chameleon_rpg.ChameleonRPG;

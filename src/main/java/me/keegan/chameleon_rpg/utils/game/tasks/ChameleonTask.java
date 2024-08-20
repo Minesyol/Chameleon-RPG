@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.tasks;
+package me.keegan.chameleon_rpg.utils.game.tasks;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
