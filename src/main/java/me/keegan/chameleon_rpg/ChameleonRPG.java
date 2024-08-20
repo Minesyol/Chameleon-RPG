@@ -3,7 +3,8 @@ package me.keegan.chameleon_rpg;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
-import me.keegan.chameleon_rpg.utils.registeries.Registries;
+import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
+import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -45,6 +46,9 @@ public final class ChameleonRPG extends JavaPlugin {
         Registries.registerReflections(Registries.Scanner.SUBTYPES, Listener.class,
                 registry -> getServer().getPluginManager().registerEvents(registry, this));
 
+        // call all IChameleonPluginState onPluginEnable methods
+        Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonPluginState.class, IChameleonPluginState::onPluginEnable);
+
         // add recipes
         Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonRecipe.class,
                 registry -> Arrays.stream(registry.getChameleonRecipes())
@@ -59,5 +63,8 @@ public final class ChameleonRPG extends JavaPlugin {
 
             PlayerUtils.saveChameleonPlayerToFile(chameleonPlayer);
         }
+
+        // call all IChameleonPluginState onPluginDisable methods
+        Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonPluginState.class, IChameleonPluginState::onPluginDisable);
     }
 }
