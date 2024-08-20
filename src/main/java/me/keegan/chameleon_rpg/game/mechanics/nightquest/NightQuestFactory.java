@@ -5,14 +5,13 @@ import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
 import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class NightQuestFactory implements IChameleonPluginState {
-    private static final Set<NightQuestModel> nightQuestTypes = new HashSet<>();
+    private static final List<NightQuestModel> nightQuestTypes = new ArrayList<>();
 
     public static NightQuestModel createRandomNightQuest(Player player) {
-
+        return nightQuestTypes.get(new Random().nextInt(0, nightQuestTypes.size()));
     }
 
     @Override
