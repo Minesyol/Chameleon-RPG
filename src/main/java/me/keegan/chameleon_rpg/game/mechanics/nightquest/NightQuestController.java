@@ -22,6 +22,7 @@ public final class NightQuestController implements IChameleonPluginState {
 
                 if (world.getEnvironment() != World.Environment.NORMAL || !isDayTime) { continue; }
 
+                ongoingNightQuests.put(player.getUniqueId(), NightQuestFactory.createRandomNightQuest(player));
                 // todo: everything lol
             }
         };
