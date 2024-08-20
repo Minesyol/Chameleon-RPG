@@ -1,5 +1,12 @@
 package me.keegan.chameleon_rpg.game.mechanics.nightquest;
 
-public abstract class NightQuestModel {
+import org.bukkit.entity.Player;
 
+public abstract class NightQuestModel {
+    private int progress;
+    private int requiredProgress;
+
+    public NightQuestModel(Player player) {
+        progress = 5;
+    }
 }
