@@ -10,11 +10,13 @@ import java.util.Arrays;
 import java.util.Set;
 
 public final class Registries {
+    private static String registryPath = ChameleonRPG.getMainDir();
+
     public enum Scanner {
         SUBTYPES {
             @Override
             public <T> Set<Class<? extends T>> scanFor(Class<T> referenceClass) {
-                return new Reflections(ChameleonRPG.getMainDir(), Scanners.SubTypes).getSubTypesOf(referenceClass);
+                return new Reflections(registryPath, Scanners.SubTypes).getSubTypesOf(referenceClass);
             }
         };
 
@@ -23,6 +25,15 @@ public final class Registries {
 
     private static <T> boolean hasDefaultConstructor(Class<T> clazz) {
         return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
+    }
+
+    /**
+     * The registry path automatically gets changed back to the default path
+     * once the registerReflections method is finished scanning.
+     * @param path The path where the registries you want to scan for reside
+     */
+    public static void setRegistryPath(String path) {
+        registryPath = path;
     }
 
     /**
@@ -41,5 +52,7 @@ public final class Registries {
                 throw new RuntimeException(e);
             }
         }
+
+        registryPath = ChameleonRPG.getMainDir();
     }
 }
