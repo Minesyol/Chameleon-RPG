@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import java.util.Set;
 
 public abstract class NightQuestModel implements Listener {
-    public abstract <T> Set<NightQuest<? extends T>> getNightQuests();
+    public abstract Set<NightQuest<?>> getNightQuests();
 
     private int progress;
     private int requiredProgress;
