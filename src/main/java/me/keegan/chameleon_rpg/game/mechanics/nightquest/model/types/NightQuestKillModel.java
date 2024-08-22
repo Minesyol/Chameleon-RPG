@@ -26,8 +26,10 @@ public class NightQuestKillModel extends NightQuestModel {
         super(player);
     }
 
+    // todo: make a chameleon event
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
-        tryToAddProgress(e.getEntity().getKiller());
+        if (e.getEntity().getKiller() == null) { return; }
+        tryToAddProgress(e.getEntity().getKiller(), e.getEntity());
     }
 }

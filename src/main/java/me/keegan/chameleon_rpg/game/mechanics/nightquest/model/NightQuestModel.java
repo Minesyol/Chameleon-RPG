@@ -6,6 +6,7 @@ import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Set;
 
@@ -32,18 +33,14 @@ public abstract class NightQuestModel implements Listener {
         return complete;
     }
 
-    private void setComplete(boolean isComplete) {
-        complete = isComplete;
-    }
-
     private void completeNightQuest() {
         complete = true;
         ChameleonChat.sendMessage(player, "Night quest completed.");
     }
 
-    protected final void tryToAddProgress(Player targetPlayer) {
+    protected final <T> void tryToAddProgress(@NonNull Player targetPlayer, @NonNull T nightQuestTarget) {
         NightQuestModel nightQuestModel = NightQuestController.getOngoingNightQuestModel(targetPlayer);
-        progress += (nightQuestModel != null && nightQuestModel.equals(this)) ? 1 : 0;
+        progress += (nightQuestModel != null && nightQuestModel.nightQuest.getTarget().equals(nightQuestTarget)) ? 1 : 0;
 
         if (progress < requiredProgress) { return; }
         completeNightQuest();
