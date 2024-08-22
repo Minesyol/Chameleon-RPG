@@ -1,6 +1,10 @@
 package me.keegan.chameleon_rpg.utils.classes.math;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.Random;
+import java.util.Set;
 
 public class ChameleonRandom {
     private final int start, end;
@@ -17,5 +21,10 @@ public class ChameleonRandom {
 
     public int random() {
         return new Random().nextInt(start, end + 1);
+    }
+
+    @Nullable
+    public static <T> T chooseRandom(@NonNull Set<T> tSet) {
+        return tSet.stream().skip(new Random().nextInt(tSet.size())).findFirst().orElse(null);
     }
 }

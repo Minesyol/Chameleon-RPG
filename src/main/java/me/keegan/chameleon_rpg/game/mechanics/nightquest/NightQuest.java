@@ -5,7 +5,7 @@ import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
 /**
  * The real quest class; not a model to control
  */
-public class NightQuest<T> {
+public final class NightQuest<T> {
     private final ChameleonRandom randomRequiredProgress;
     private final T target;
 

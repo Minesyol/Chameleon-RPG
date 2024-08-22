@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class NightQuestFactory implements IChameleonPluginState {
+public final class NightQuestFactory implements IChameleonPluginState {
     private static final List<Class<? extends NightQuestModel>> nightQuestTypes = new ArrayList<>();
 
     public static NightQuestModel createRandomNightQuest(Player player) {
@@ -21,7 +21,7 @@ public class NightQuestFactory implements IChameleonPluginState {
 
     @Override
     public void onPluginEnable() {
-        Registries.setRegistryPath(String.format("%s.game.mechanics.nightquest.types", ChameleonRPG.getMainDir()));
+        Registries.setRegistryPath(String.format("%s.game.mechanics.nightquest.model.types", ChameleonRPG.getMainDir()));
         Registries.registerReflections(Registries.Scanner.SUBTYPES, NightQuestModel.class, registry -> nightQuestTypes.add(registry.getClass()));
     }
 }

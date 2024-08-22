@@ -24,14 +24,17 @@ public final class NightQuestController implements IChameleonPluginState {
         Runnable runnable = () -> {
             for (Player player : ChameleonRPG.getPlugin().getServer().getOnlinePlayers()) {
                 World world = player.getWorld();
+                UUID uuid = player.getUniqueId();
+
                 boolean isDayTime = world.getTime() < 13000 || world.getTime() > 23000;
+                if (ongoingNightQuests.containsKey(uuid) || world.getEnvironment() != World.Environment.NORMAL) { continue; }
 
-                if (ongoingNightQuests.containsKey(player.getUniqueId())
-                        || world.getEnvironment() != World.Environment.NORMAL
-                        || !isDayTime) { continue; }
+                if (!isDayTime || ongoingNightQuests.get(uuid).isComplete()) {
+                    ongoingNightQuests.remove(uuid);
+                    return;
+                }
 
-                ongoingNightQuests.put(player.getUniqueId(), NightQuestFactory.createRandomNightQuest(player));
-                // todo: everything lol
+                ongoingNightQuests.put(uuid, NightQuestFactory.createRandomNightQuest(player));
             }
         };
 
