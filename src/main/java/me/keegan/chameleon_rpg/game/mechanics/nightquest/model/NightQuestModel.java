@@ -1,5 +1,6 @@
 package me.keegan.chameleon_rpg.game.mechanics.nightquest.model;
 
+import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuestController;
 import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
@@ -26,7 +27,7 @@ public abstract class NightQuestModel implements Listener {
         nightQuest = ChameleonRandom.chooseRandom(getNightQuests());
         requiredProgress = nightQuest.getRequiredProgress();
 
-        ChameleonChat.sendMessage(player, "Night quest: " + nightQuest.getRequiredProgress());
+        ChameleonChat.sendMessage(player, "Night quest: " + requiredProgress);
     }
 
     public boolean isComplete() {
@@ -40,9 +41,16 @@ public abstract class NightQuestModel implements Listener {
 
     protected final <T> void tryToAddProgress(@NonNull Player targetPlayer, @NonNull T nightQuestTarget) {
         NightQuestModel nightQuestModel = NightQuestController.getOngoingNightQuestModel(targetPlayer);
-        progress += (nightQuestModel != null && nightQuestModel.nightQuest.getTarget().equals(nightQuestTarget)) ? 1 : 0;
+        if (nightQuestModel == null || !nightQuestModel.nightQuest.getTarget().equals(nightQuestTarget)) { return; }
 
+        if (player == null) {
+            nightQuestModel.tryToAddProgress(targetPlayer, nightQuestTarget);
+            return;
+        }
+
+        progress++;
         if (progress < requiredProgress) { return; }
+
         completeNightQuest();
     }
 }

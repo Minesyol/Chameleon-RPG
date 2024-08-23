@@ -30,6 +30,6 @@ public class NightQuestKillModel extends NightQuestModel {
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
         if (e.getEntity().getKiller() == null) { return; }
-        tryToAddProgress(e.getEntity().getKiller(), e.getEntity());
+        tryToAddProgress(e.getEntity().getKiller(), e.getEntity().getType());
     }
 }

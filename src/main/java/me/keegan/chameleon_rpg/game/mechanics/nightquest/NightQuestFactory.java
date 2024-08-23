@@ -13,6 +13,7 @@ public final class NightQuestFactory implements IChameleonPluginState {
 
     public static NightQuestModel createRandomNightQuest(Player player) {
         try {
+            ChameleonRPG.info("created random");
            return nightQuestTypes.get(new Random().nextInt(0, nightQuestTypes.size())).getConstructor(Player.class).newInstance(player);
         } catch (Exception e) {
             throw new RuntimeException(e);

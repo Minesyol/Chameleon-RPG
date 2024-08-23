@@ -9,10 +9,12 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 public final class NightQuestController implements IChameleonPluginState {
     private static final HashMap<UUID, NightQuestModel> ongoingNightQuests = new HashMap<>();
+    private static final HashSet<UUID> completedNightQuests = new HashSet<>();
 
     @Nullable
     public static NightQuestModel getOngoingNightQuestModel(Player player) {
@@ -26,12 +28,23 @@ public final class NightQuestController implements IChameleonPluginState {
                 World world = player.getWorld();
                 UUID uuid = player.getUniqueId();
 
-                boolean isDayTime = world.getTime() < 13000 || world.getTime() > 23000;
-                if (ongoingNightQuests.containsKey(uuid) || world.getEnvironment() != World.Environment.NORMAL) { continue; }
+                boolean isNightTime = world.getTime() > 13000 && world.getTime() < 23000;
 
-                if (!isDayTime || ongoingNightQuests.get(uuid).isComplete()) {
-                    ongoingNightQuests.remove(uuid);
-                    return;
+                if (!isNightTime) {
+                    completedNightQuests.remove(uuid);
+                    continue;
+                }
+
+                if (completedNightQuests.contains(uuid) || world.getEnvironment() != World.Environment.NORMAL)
+                    continue;
+
+                if (ongoingNightQuests.containsKey(uuid)) {
+                    if (ongoingNightQuests.get(uuid).isComplete()) {
+                        ongoingNightQuests.remove(uuid);
+                        completedNightQuests.add(uuid);
+                    }
+
+                    continue;
                 }
 
                 ongoingNightQuests.put(uuid, NightQuestFactory.createRandomNightQuest(player));
