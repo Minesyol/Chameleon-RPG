@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.events;
+package me.keegan.chameleon_rpg.utils.events.model;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

@@ -1,18 +1,18 @@
 package me.keegan.chameleon_rpg.game.player;
 
 import me.keegan.chameleon_rpg.game.mechanics.Bits;
+import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
+import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-public final class ChameleonPlayer implements Serializable, Listener {
+public final class ChameleonPlayer implements Serializable, IChameleonListener {
     @Serial
     private static final long serialVersionUID = 5345345L;
 
@@ -60,7 +60,7 @@ public final class ChameleonPlayer implements Serializable, Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntityDeath(EntityDeathEvent e) {
+    public void onEntityDeath(EntityDeathByPlayerCEvent e) {
         Bits.getInstance().markEntityDeath(e);
     }
 

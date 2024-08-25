@@ -1,18 +1,21 @@
 package me.keegan.chameleon_rpg.game.mechanics.nightquest.model;
 
-import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuestController;
 import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
+import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Set;
 
-public abstract class NightQuestModel implements Listener {
+public abstract class NightQuestModel implements IChameleonListener {
     public abstract Set<NightQuest<?>> getNightQuests();
+    public abstract <T extends NightQuest<?>> String getNightQuestAssignedMessage(T nightQuestTarget, int requiredProgress);
+
+    private final String NIGHT_QUEST_MESSAGE_PREFIX = ChatColor.BLUE + ChatColor.BOLD.toString() + "NIGHT QUEST!";
 
     private boolean complete;
     private int progress;
@@ -27,7 +30,12 @@ public abstract class NightQuestModel implements Listener {
         nightQuest = ChameleonRandom.chooseRandom(getNightQuests());
         requiredProgress = nightQuest.getRequiredProgress();
 
-        ChameleonChat.sendMessage(player, "Night quest: " + requiredProgress);
+        sendMessage(player, getNightQuestAssignedMessage(nightQuest, requiredProgress));
+    }
+
+    public void sendMessage(Player player, String message) {
+        ChameleonChat.setMessagePrefix(NIGHT_QUEST_MESSAGE_PREFIX);
+        ChameleonChat.sendMessage(player, ChatColor.GRAY + message);
     }
 
     public boolean isComplete() {
@@ -36,7 +44,7 @@ public abstract class NightQuestModel implements Listener {
 
     private void completeNightQuest() {
         complete = true;
-        ChameleonChat.sendMessage(player, "Night quest completed.");
+        sendMessage(player, "Completed!");
     }
 
     protected final <T> void tryToAddProgress(@NonNull Player targetPlayer, @NonNull T nightQuestTarget) {
@@ -49,6 +57,7 @@ public abstract class NightQuestModel implements Listener {
         }
 
         progress++;
+        sendMessage(player, String.format(ChatColor.BLUE + "(%s/%s)", progress, requiredProgress));
         if (progress < requiredProgress) { return; }
 
         completeNightQuest();

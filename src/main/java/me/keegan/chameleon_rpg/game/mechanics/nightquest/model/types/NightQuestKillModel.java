@@ -3,13 +3,13 @@ package me.keegan.chameleon_rpg.game.mechanics.nightquest.model.types;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.model.NightQuestModel;
 import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
-import org.bukkit.entity.Enderman;
+import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
+import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByPlayerCEvent;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDeathEvent;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class NightQuestKillModel extends NightQuestModel {
@@ -22,14 +22,17 @@ public class NightQuestKillModel extends NightQuestModel {
                 new NightQuest<>(EntityType.ENDERMAN, new ChameleonRandom(2, 5)));
     }
 
+    @Override
+    public <T extends NightQuest<?>> String getNightQuestAssignedMessage(T nightQuestTarget, int requiredProgress) {
+        return String.format("Kill %s%s %s!", ChatColor.RED, String.valueOf(requiredProgress) + ChatColor.GRAY, Inflector.getInstance().pluralize(((EntityType) nightQuestTarget.getTarget()).name().toLowerCase()));
+    }
+
     public NightQuestKillModel(Player player) {
         super(player);
     }
 
-    // todo: make a chameleon event
     @EventHandler
-    public void onEntityDeath(EntityDeathEvent e) {
-        if (e.getEntity().getKiller() == null) { return; }
-        tryToAddProgress(e.getEntity().getKiller(), e.getEntity().getType());
+    public void onEntityDeath(EntityDeathByPlayerCEvent e) {
+        tryToAddProgress(e.getKiller(), e.getVictim().getType());
     }
 }
