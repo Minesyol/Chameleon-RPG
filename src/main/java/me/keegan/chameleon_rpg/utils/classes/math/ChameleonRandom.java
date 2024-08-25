@@ -6,7 +6,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Random;
 import java.util.Set;
 
-public class ChameleonRandom {
+public final class ChameleonRandom {
     private final int start, end;
 
     /**
