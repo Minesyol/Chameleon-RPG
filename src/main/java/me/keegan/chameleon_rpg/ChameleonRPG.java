@@ -46,13 +46,13 @@ public final class ChameleonRPG extends JavaPlugin {
         Registries.registerReflections(Registries.Scanner.SUBTYPES, Listener.class,
                 registry -> getServer().getPluginManager().registerEvents(registry, this));
 
-        // call all IChameleonPluginState onPluginEnable methods
-        Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonPluginState.class, IChameleonPluginState::onPluginEnable);
-
         // add recipes
         Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonRecipe.class,
                 registry -> Arrays.stream(registry.getChameleonRecipes())
                         .forEach(chameleonRecipe -> Bukkit.addRecipe(chameleonRecipe.getRecipe())));
+
+        // call all IChameleonPluginState onPluginEnable methods
+        Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonPluginState.class, IChameleonPluginState::onPluginEnable);
     }
 
     @Override
