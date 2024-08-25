@@ -15,16 +15,35 @@ public final class Registries {
     public enum Scanner {
         SUBTYPES {
             @Override
-            public <T> Set<Class<? extends T>> scanFor(Class<T> referenceClass) {
+            protected <T> Set<Class<? extends T>> scanFor(Class<T> referenceClass) {
                 return new Reflections(registryPath, Scanners.SubTypes).getSubTypesOf(referenceClass);
+            }
+
+            @Override
+            protected <T> void scan(Class<T> referenceClass, RegisterConsumer<T> registerConsumer) {
+                for (Class<? extends T> clazz : scanFor(referenceClass)) {
+                    try {
+                        if (!isAcceptableClass(clazz)) { continue; }
+                        registerConsumer.register(hasDefaultConstructor(clazz) ? clazz.getDeclaredConstructor().newInstance() : new Gson().fromJson("{}", clazz));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         };
 
-        public abstract <T> Set<Class<? extends T>> scanFor(Class<T> referenceClass);
-    }
 
-    private static <T> boolean hasDefaultConstructor(Class<T> clazz) {
-        return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
+        protected abstract <T> Set<?> scanFor(Class<T> referenceClass);
+        protected abstract <T> void scan(Class<T> referenceClass, RegisterConsumer<T> registerConsumer);
+
+        @SuppressWarnings("all")
+        protected boolean isAcceptableClass(Class<?> clazz) {
+            return !clazz.equals(ChameleonRPG.class) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers());
+        }
+
+        protected <T> boolean hasDefaultConstructor(Class<T> clazz) {
+            return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
+        }
     }
 
     /**
@@ -44,15 +63,7 @@ public final class Registries {
      * @param <T> Any type
      */
     public static <T> void registerReflections(Scanner scanner, Class<T> referenceClass, RegisterConsumer<T> registerConsumer) {
-        for (Class<? extends T> clazz : scanner.scanFor(referenceClass)) {
-            try {
-                if (clazz.equals(ChameleonRPG.class) || clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) { continue; }
-                registerConsumer.register(hasDefaultConstructor(clazz) ? clazz.getDeclaredConstructor().newInstance() : new Gson().fromJson("{}", clazz));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+        scanner.scan(referenceClass, registerConsumer);
         registryPath = ChameleonRPG.getMainDir();
     }
 }
