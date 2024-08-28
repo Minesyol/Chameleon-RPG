@@ -3,10 +3,14 @@ package me.keegan.chameleon_rpg.game.items.mystics;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 
 public final class CustomMystic implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 94329603114413L;
+
     HashMap<String, Integer> mysticEnchants = new HashMap<>();
 
     // left pair = Mystic Enum Name : right pair = Mystic Name
@@ -23,6 +27,4 @@ public final class CustomMystic implements Serializable {
 
     int mysticTier;
     boolean mysticGemmed;
-
-
 }

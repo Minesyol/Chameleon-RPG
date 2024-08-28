@@ -24,7 +24,11 @@ public final class ChameleonEventService implements IChameleonPluginState {
 
         for (Method method : chameleonEventMethods) {
             try {
-                method.invoke(new Gson().fromJson("{}", method.getDeclaringClass()), chameleonEvent);
+                Class<?> clazz = method.getDeclaringClass();
+
+                method.invoke(Registries.hasDefaultConstructor(clazz)
+                        ? clazz.getDeclaredConstructor().newInstance()
+                        : new Gson().fromJson("{}", method.getDeclaringClass()), chameleonEvent);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

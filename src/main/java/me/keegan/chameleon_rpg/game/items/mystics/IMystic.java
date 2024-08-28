@@ -13,11 +13,11 @@ import java.util.List;
 public interface IMystic {
     ItemStack setFreshData(ItemStack itemStack); // executes when mystic is created
     List<String> getFreshLore(ChatColor chatColor); // fresh lore
-    List<String> getEnchantLore(ChatColor chatColor); // when mystic is enchanted lore
+    List<String> getEnchantedLore(ChatColor chatColor); // when mystic is enchanted lore
     Material getMaterial();
     String getFreshPrefix(); // fresh, mystic
-    String getName(ChatColor chatColor); // blue, red, sword, etc.; used for nbt value
-    String getNBTTagName(); // enum's name; used for nbt key
+    String getName(ChatColor chatColor); // blue, red, sword, etc.
+    String getEnumName(); // the mystic enum name
     LinkedHashMap<ChatColor, Color> getPantColors();
     List<ItemStack> getMysticWellPaneColors();
     List<ChatColor> getTierColors(ChatColor chatColor); // itemstack's display name color
@@ -27,6 +27,14 @@ public interface IMystic {
     boolean isStrongAsIron();
 
     /*
+     * 8/28/24
+     * - This is old and outdated. Please use the CustomMystic class
+     * - which contains all the mystic information.
+     *
+     * - The CustomMystic class should be encoded to base64
+     * - and be saved in the mystic's persistent data container
+     * - under the key "mystic"
+     *
      * nbt tag gets written like this
      * mystic = <ENUM_NAME>:<Mystic_Name>
      * mystic_tier = <MYSTIC_TIER>

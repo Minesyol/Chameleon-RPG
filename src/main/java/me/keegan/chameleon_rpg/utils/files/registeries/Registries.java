@@ -40,10 +40,6 @@ public final class Registries {
         protected boolean isAcceptableClass(Class<?> clazz) {
             return !clazz.equals(ChameleonRPG.class) && !clazz.isInterface() && !Modifier.isAbstract(clazz.getModifiers());
         }
-
-        protected <T> boolean hasDefaultConstructor(Class<T> clazz) {
-            return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
-        }
     }
 
     /**
@@ -53,6 +49,10 @@ public final class Registries {
      */
     public static void setRegistryPath(String path) {
         registryPath = path;
+    }
+
+    public static <T> boolean hasDefaultConstructor(Class<T> clazz) {
+        return Arrays.stream(clazz.getConstructors()).anyMatch(constructor -> constructor.getParameterCount() == 0);
     }
 
     /**
