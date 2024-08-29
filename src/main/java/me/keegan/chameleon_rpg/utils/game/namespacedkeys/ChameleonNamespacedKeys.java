@@ -12,7 +12,7 @@ public final class ChameleonNamespacedKeys {
     public static final NamespacedKey MYSTIC_ITEMSTACK_KEY = new NamespacedKey(ChameleonRPG.getPlugin(), "mystic");
 
     @Nullable
-    public static <P, C> Object getNamespacedValue(NamespacedKey namespacedKey, PersistentDataType<P, C> persistentDataType, PersistentDataContainer persistentDataContainer) {
+    public static <P, C> C getNamespacedValue(NamespacedKey namespacedKey, PersistentDataType<P, C> persistentDataType, PersistentDataContainer persistentDataContainer) {
         return persistentDataContainer.get(namespacedKey, persistentDataType);
     }
 }

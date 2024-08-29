@@ -12,15 +12,15 @@ import java.util.List;
 
 public interface IMystic {
     ItemStack setFreshData(ItemStack itemStack); // executes when mystic is created
-    List<String> getFreshLore(ChatColor chatColor); // fresh lore
-    List<String> getEnchantedLore(ChatColor chatColor); // when mystic is enchanted lore
+    List<String> getFreshLore(@Nullable ChatColor chatColor); // fresh lore
+    List<String> getEnchantedLore(@Nullable ChatColor chatColor); // when mystic is enchanted lore
     Material getMaterial();
     String getFreshPrefix(); // fresh, mystic
     String getName(ChatColor chatColor); // blue, red, sword, etc.
     String getEnumName(); // the mystic enum name
     LinkedHashMap<ChatColor, Color> getPantColors();
     List<ItemStack> getMysticWellPaneColors();
-    List<ChatColor> getTierColors(ChatColor chatColor); // itemstack's display name color
+    List<ChatColor> getTierColors(@Nullable ChatColor chatColor); // itemstack's display name color
     List<Integer> getMysticWellCost();
     int getMaxTier();
     boolean requireSacrificeOnMaxTier();

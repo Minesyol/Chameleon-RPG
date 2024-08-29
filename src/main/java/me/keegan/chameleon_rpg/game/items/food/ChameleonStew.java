@@ -34,8 +34,7 @@ public final class ChameleonStew implements IChameleonRecipe, IChameleonItem, Li
         ItemStack itemConsumed = e.getItem();
         Player player = e.getPlayer();
 
-        // we can cast null safely without throwing an exception
-        String value = (String) ChameleonNamespacedKeys.getNamespacedValue(ChameleonNamespacedKeys.CHAMELEON_ITEMSTACK_KEY,
+        String value = ChameleonNamespacedKeys.getNamespacedValue(ChameleonNamespacedKeys.CHAMELEON_ITEMSTACK_KEY,
                 PersistentDataType.STRING,
                 itemConsumed.getItemMeta().getPersistentDataContainer());
         if (value == null || !value.equals(getNamespacedValue())) { return; }
