@@ -21,7 +21,7 @@ public final class MysticUtils {
 
     @Nullable
     public static CustomMystic getMysticData(@NonNull ItemStack mystic) {
-
+        return SerializationUtils.decodeFromBase64(mystic.getItemMeta().getPersistentDataContainer().get(ChameleonNamespacedKeys.MYSTIC_ITEMSTACK_KEY, PersistentDataType.STRING), CustomMystic.class);
     }
 
 }
