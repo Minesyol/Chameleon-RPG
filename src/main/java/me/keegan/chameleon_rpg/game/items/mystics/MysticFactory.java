@@ -1,5 +1,6 @@
 package me.keegan.chameleon_rpg.game.items.mystics;
 
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.checkerframework.checker.nullness.qual.NonNull;

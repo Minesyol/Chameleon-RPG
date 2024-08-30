@@ -11,20 +11,28 @@ public final class CustomMystic implements Serializable {
     @Serial
     private static final long serialVersionUID = 94329603114413L;
 
-    HashMap<String, Integer> mysticEnchants = new HashMap<>();
+    private final HashMap<String, Integer> mysticEnchants = new HashMap<>();
 
     // left pair = Mystic Enum Name : right pair = Mystic Name
-    Pair<String, String> mysticIdentifier = new MutablePair<>();
+    private final Pair<String, String> mysticIdentifier = new MutablePair<>();
 
     // left pair = lives : right pair = max lives
-    Pair<Integer, Integer> mysticLives = new MutablePair<>();
+    private final Pair<Integer, Integer> mysticLives = new MutablePair<>();
 
     // the chatcolor of the mystic if it was recolored
-    String mysticChatColor;
+    private String mysticChatColor;
 
     // the required color for the sword/bow to t3
-    String mysticRequiredColor;
+    private String mysticRequiredColor;
 
-    int mysticTier;
-    boolean mysticGemmed;
+    private int mysticTier;
+    private boolean mysticGemmed;
+
+    public static CustomMystic builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+    }
 }
