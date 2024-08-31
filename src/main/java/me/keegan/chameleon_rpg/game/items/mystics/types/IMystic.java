@@ -1,5 +1,6 @@
-package me.keegan.chameleon_rpg.game.items.mystics;
+package me.keegan.chameleon_rpg.game.items.mystics.types;
 
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -18,6 +19,7 @@ public interface IMystic {
     String getFreshPrefix(); // fresh, mystic
     String getName(ChatColor chatColor); // blue, red, sword, etc.
     String getEnumName(); // the mystic enum name
+    MysticRequiredPantColor getRequiredPantColor();
     LinkedHashMap<ChatColor, Color> getPantColors();
     List<ItemStack> getMysticWellPaneColors();
     List<ChatColor> getTierColors(@Nullable ChatColor chatColor); // itemstack's display name color
@@ -54,6 +56,13 @@ public interface IMystic {
      * mystic_gemmed = "TRUE"
      */
 
+    enum MysticRequiredPantColor {
+        RANDOM_FRESH,
+        RANDOM_ANY, // TODO: Implement
+        SAME_COLOR
+    }
+
+    @Getter
     enum MysticTier {
         FRESH(0),
         TIER_ONE(1),
@@ -64,10 +73,6 @@ public interface IMystic {
 
         MysticTier(int tier) {
             this.tier = tier;
-        }
-
-        public int getTier() {
-            return this.tier;
         }
 
         @Nullable
