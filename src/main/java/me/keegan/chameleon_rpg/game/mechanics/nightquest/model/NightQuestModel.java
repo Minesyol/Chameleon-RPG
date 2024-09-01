@@ -33,6 +33,7 @@ public abstract class NightQuestModel implements IChameleonListener {
         sendMessage(player, getNightQuestAssignedMessage(nightQuest, requiredProgress));
     }
 
+    // should have probably been a logger interface/mixin
     public void sendMessage(Player player, String message) {
         ChameleonChat.setMessagePrefix(NIGHT_QUEST_MESSAGE_PREFIX);
         ChameleonChat.sendMessage(player, ChatColor.GRAY + message);
