@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public final class MysticFactory {
-    private static ItemStack createDefaultMystic(Mystic mystic, @Nullable ChatColor chatColor) {
+    private static ItemStack createDefaultMystic(@NonNull Mystic mystic, @Nullable ChatColor chatColor) {
         ItemStack itemStack = new ItemStack(mystic.getMaterial());
         ItemMeta itemMeta = itemStack.getItemMeta();
 
