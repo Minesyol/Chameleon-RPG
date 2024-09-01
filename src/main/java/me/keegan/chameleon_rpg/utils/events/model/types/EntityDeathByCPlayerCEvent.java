@@ -3,6 +3,7 @@ package me.keegan.chameleon_rpg.utils.events.model.types;
 import lombok.Getter;
 import me.keegan.chameleon_rpg.utils.events.model.ChameleonEvent;
 import me.keegan.chameleon_rpg.utils.events.ChameleonEventService;
+import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,16 +14,20 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
 
+/**
+ * Fires when a player kills a living entity
+ * and that player is a registered chameleon player
+ */
 @Getter
-public final class EntityDeathByPlayerCEvent extends ChameleonEvent<EntityDeathEvent> {
-    private final LivingEntity livingEntity;
-    private final Player player;
+public final class EntityDeathByCPlayerCEvent extends ChameleonEvent<EntityDeathEvent> {
+    private final LivingEntity victim;
+    private final Player killer;
 
-    public EntityDeathByPlayerCEvent(@NonNull EntityDeathEvent e) {
+    public EntityDeathByCPlayerCEvent(@NonNull EntityDeathEvent e) {
         super(e);
 
-        this.livingEntity = e.getEntity();
-        this.player = e.getEntity().getKiller();
+        this.victim = e.getEntity();
+        this.killer = e.getEntity().getKiller();
     }
 
     public List<ItemStack> getDrops() {
@@ -36,7 +41,7 @@ public final class EntityDeathByPlayerCEvent extends ChameleonEvent<EntityDeathE
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDeath(EntityDeathEvent e) {
-        if (e.getEntity().getKiller() == null) { return; }
-        ChameleonEventService.callEvent(new EntityDeathByPlayerCEvent(e));
+        if (e.getEntity().getKiller() == null || PlayerUtils.getChameleonPlayerFromFile(e.getEntity().getKiller()) == null) { return; }
+        ChameleonEventService.callEvent(new EntityDeathByCPlayerCEvent(e));
     }
 }
