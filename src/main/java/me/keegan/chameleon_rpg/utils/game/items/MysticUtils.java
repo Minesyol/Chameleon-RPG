@@ -4,6 +4,7 @@ import me.keegan.chameleon_rpg.game.items.mystics.data.CustomMystic;
 import me.keegan.chameleon_rpg.utils.files.SerializationUtils;
 import me.keegan.chameleon_rpg.utils.game.namespacedkeys.ChameleonNamespacedKeys;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -11,10 +12,11 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class MysticUtils {
     public static void saveMysticData(@NonNull ItemStack mystic, @NonNull CustomMystic customMystic) {
-        String encodedCustomMystic = SerializationUtils.encodeToBase64(customMystic);
+        ItemMeta itemMeta = mystic.getItemMeta();
+        PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
 
-        PersistentDataContainer persistentDataContainer = mystic.getItemMeta().getPersistentDataContainer();
-        persistentDataContainer.set(ChameleonNamespacedKeys.MYSTIC_ITEMSTACK_KEY, PersistentDataType.STRING, encodedCustomMystic);
+        persistentDataContainer.set(ChameleonNamespacedKeys.MYSTIC_ITEMSTACK_KEY, PersistentDataType.STRING, SerializationUtils.encodeToBase64(customMystic));
+        mystic.setItemMeta(itemMeta);
     }
 
     @Nullable
