@@ -4,7 +4,7 @@ import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.model.NightQuestModel;
 import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
 import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
-import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByPlayerCEvent;
+import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -32,7 +32,7 @@ public class NightQuestKillModel extends NightQuestModel {
     }
 
     @EventHandler
-    public void onEntityDeath(EntityDeathByPlayerCEvent e) {
+    public void onEntityDeath(EntityDeathByCPlayerCEvent e) {
         tryToAddProgress(e.getKiller(), e.getVictim().getType());
     }
 }
