@@ -2,7 +2,7 @@ package me.keegan.chameleon_rpg.game.player;
 
 import me.keegan.chameleon_rpg.game.mechanics.Bits;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
-import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByPlayerCEvent;
+import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,7 +60,7 @@ public final class ChameleonPlayer implements Serializable, IChameleonListener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntityDeath(EntityDeathByPlayerCEvent e) {
+    public void onEntityDeath(EntityDeathByCPlayerCEvent e) {
         Bits.getInstance().markEntityDeath(e);
     }
 
