@@ -13,7 +13,7 @@ import java.util.*;
 public final class ChameleonEventService implements IChameleonPluginState {
     private static final List<Method> eventMethods = new ArrayList<>();
 
-    public static void callEvent(ChameleonEvent chameleonEvent) {
+    public static void callEvent(ChameleonEvent<?> chameleonEvent) {
         List<Method> chameleonEventMethods = new ArrayList<>();
 
         eventMethods.stream()
@@ -37,7 +37,7 @@ public final class ChameleonEventService implements IChameleonPluginState {
 
     @Override
     public void onPluginEnable() {
-        ChameleonEvent chameleonEvent = new ChameleonEvent();
+        ChameleonEvent<?> chameleonEvent = new ChameleonEvent<>(null);
 
         Registries.registerReflections(Registries.Scanner.SUBTYPES, IChameleonListener.class, registry -> {
             for (Method method : registry.getClass().getMethods()) {
