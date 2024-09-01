@@ -3,7 +3,7 @@ package me.keegan.chameleon_rpg.game.mechanics;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.classes.ChameleonHashMap;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
-import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByPlayerCEvent;
+import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
 import org.bukkit.attribute.Attribute;
@@ -24,34 +24,31 @@ public final class Bits implements IChameleonListener {
         return instance;
     }
 
-    private final ChameleonHashMap<EntityDeathByPlayerCEvent, Integer> bitMap = new ChameleonHashMap<>();
-    private final HashMap<EntityDeathByPlayerCEvent, Double> bitMultiplierMap = new HashMap<>();
+    private final ChameleonHashMap<EntityDeathByCPlayerCEvent, Integer> bitMap = new ChameleonHashMap<>();
+    private final HashMap<EntityDeathByCPlayerCEvent, Double> bitMultiplierMap = new HashMap<>();
 
     private final int DEFAULT_BIT_REWARD = 2;
     private final int MAX_DEFAULT_BIT_REWARD = 15;
 
-    private int getCalculatedBits(EntityDeathByPlayerCEvent e) {
+    private int getCalculatedBits(EntityDeathByCPlayerCEvent e) {
         return (int) Math.clamp(instance.bitMap.get(e) * instance.bitMultiplierMap.getOrDefault(e, 1d), 0, Double.POSITIVE_INFINITY);
     }
 
-    public void markEntityDeath(EntityDeathByPlayerCEvent e) {
-        LivingEntity livingEntity = e.getVictim();
-        if (PlayerUtils.getChameleonPlayerFromFile(e.getKiller()) == null) { return; }
-
-        bitMap.put(e, (int) Math.clamp(livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2, DEFAULT_BIT_REWARD, MAX_DEFAULT_BIT_REWARD));
+    public void markEntityDeath(EntityDeathByCPlayerCEvent e) {
+        bitMap.put(e, (int) Math.clamp(e.getVictim().getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2, DEFAULT_BIT_REWARD, MAX_DEFAULT_BIT_REWARD));
     }
 
-    public void addBits(EntityDeathByPlayerCEvent e, int bits) {
+    public void addBits(EntityDeathByCPlayerCEvent e, int bits) {
         bitMap.putIfExists(e, bitMap.get(e) + bits);
     }
 
-    public void addBitMultipliers(EntityDeathByPlayerCEvent e, double bitMultipliers) {
+    public void addBitMultipliers(EntityDeathByCPlayerCEvent e, double bitMultipliers) {
         bitMultiplierMap.put(e, bitMultiplierMap.getOrDefault(e, 0d) + bitMultipliers);
     }
 
     @SuppressWarnings("all")
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onEntityDeath(EntityDeathByPlayerCEvent e) {
+    public void onEntityDeath(EntityDeathByCPlayerCEvent e) {
         LivingEntity livingEntity = e.getVictim();
         if (!instance.bitMap.containsKey(e)) { return; }
 
