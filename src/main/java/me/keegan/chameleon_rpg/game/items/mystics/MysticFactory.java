@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.MutablePair;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;
@@ -22,7 +23,7 @@ public final class MysticFactory {
         String mysticName = mystic.getName(chatColor);
 
         itemMeta.setLore(mystic.getFreshLore(chatColor));
-        itemMeta.setDisplayName(mystic.getTierColors(chatColor) + mystic.getFreshPrefix() + " " + mysticName);
+        itemMeta.setDisplayName(mystic.getTierColors(chatColor).getFirst() + mystic.getFreshPrefix() + " " + mysticName);
 
         CustomMystic customMystic = new CustomMystic();
         customMystic.setMysticIdentifier(new MutablePair<>(mystic.getEnumName(), mysticName));
@@ -30,12 +31,16 @@ public final class MysticFactory {
         String requiredPantColor;
 
         if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.RANDOM_FRESH) {
-            requiredPantColor = Mystic.FRESH.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.FRESH.getPantColors().size() - 1))].toString();
+            requiredPantColor = Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))].toString();
         } else if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.SAME_COLOR) {
             assert chatColor != null : "ChatColor argument cannot be null when MysticRequiredPantColor is same color";
             requiredPantColor = chatColor.toString();
         } else {
             throw new RuntimeException(Inflector.getInstance().titleCase(mystic.getRequiredPantColor().name()) + " has not been implemented yet");
+        }
+
+        if (itemMeta instanceof LeatherArmorMeta leatherArmorMeta) {
+            leatherArmorMeta.setColor(mystic.getPantColors().get(chatColor));
         }
 
         customMystic.setMysticRequiredColor(requiredPantColor);
