@@ -2,7 +2,7 @@ package me.keegan.chameleon_rpg.game.items.mystics;
 
 import me.keegan.chameleon_rpg.game.items.mystics.data.CustomMystic;
 import me.keegan.chameleon_rpg.game.items.mystics.types.IMystic;
-import me.keegan.chameleon_rpg.game.items.mystics.types.Mystic;
+import me.keegan.chameleon_rpg.game.items.mystics.types.MysticType;
 import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
 import me.keegan.chameleon_rpg.utils.game.items.MysticUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public final class MysticFactory {
-    private static ItemStack createDefaultMystic(@NonNull Mystic mystic, @Nullable ChatColor chatColor) {
+    private static ItemStack createDefaultMystic(@NonNull MysticType mystic, @Nullable ChatColor chatColor) {
         ItemStack itemStack = new ItemStack(mystic.getMaterial());
         ItemMeta itemMeta = itemStack.getItemMeta();
 
@@ -31,7 +31,7 @@ public final class MysticFactory {
         String requiredPantColor;
 
         if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.RANDOM_FRESH) {
-            requiredPantColor = Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))].toString();
+            requiredPantColor = MysticType.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(MysticType.DEFAULT.getPantColors().size() - 1))].toString();
         } else if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.SAME_COLOR) {
             assert chatColor != null : "ChatColor argument cannot be null when MysticRequiredPantColor is " + mystic.getRequiredPantColor().name();
             requiredPantColor = chatColor.toString();
@@ -53,12 +53,12 @@ public final class MysticFactory {
     }
 
     @NonNull
-    public static ItemStack createMystic(@NonNull Mystic mystic) {
+    public static ItemStack createMystic(@NonNull MysticType mystic) {
         return createDefaultMystic(mystic, null);
     }
 
     @NonNull
-    public static ItemStack createMystic(@NonNull Mystic mystic, @NonNull ChatColor chatColor) {
+    public static ItemStack createMystic(@NonNull MysticType mystic, @NonNull ChatColor chatColor) {
         return createDefaultMystic(mystic, chatColor);
     }
 }
