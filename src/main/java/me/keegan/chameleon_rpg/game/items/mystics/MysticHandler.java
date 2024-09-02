@@ -1,6 +1,6 @@
 package me.keegan.chameleon_rpg.game.items.mystics;
 
-import me.keegan.chameleon_rpg.game.items.mystics.types.Mystic;
+import me.keegan.chameleon_rpg.game.items.mystics.types.MysticType;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.items.MysticUtils;
@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
-public class MysticHandler implements IChameleonListener {
+public final class MysticHandler implements IChameleonListener {
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent e) {
         if (e.getResult() == null || !MysticUtils.isMystic(e.getResult())) { return; }
@@ -38,8 +38,8 @@ public class MysticHandler implements IChameleonListener {
             location.add(0, 1, 0);
 
             ItemStack mystic = Math.random() <= 0.5
-                    ? MysticFactory.createMystic(Mystic.DEFAULT, (ChatColor) Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))])
-                    : MysticFactory.createMystic(Math.random() <= 0.5 ? Mystic.SWORD : Mystic.BOW);
+                    ? MysticFactory.createMystic(MysticType.DEFAULT, (ChatColor) MysticType.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(MysticType.DEFAULT.getPantColors().size() - 1))])
+                    : MysticFactory.createMystic(Math.random() <= 0.5 ? MysticType.SWORD : MysticType.BOW);
 
             World world = player.getWorld();
 
