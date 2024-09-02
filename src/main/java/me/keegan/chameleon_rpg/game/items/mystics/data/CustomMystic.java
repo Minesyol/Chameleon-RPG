@@ -16,6 +16,7 @@ public final class CustomMystic implements Serializable {
     @Serial
     private static final long serialVersionUID = 94329603114413L;
 
+    // key = enchant data name : value = level
     private HashMap<String, Integer> mysticEnchants = new HashMap<>();
 
     // left pair = Mystic Enum Name : right pair = Mystic Name
