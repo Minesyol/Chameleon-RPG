@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface IMystic {
     ItemStack setFreshData(ItemStack itemStack); // executes when mystic is created
+    ItemStack setEnchantedData(ItemStack itemStack); // executes when mystic is enchanted at any tier
     List<String> getFreshLore(@Nullable ChatColor chatColor); // fresh lore
     List<String> getEnchantedLore(@Nullable ChatColor chatColor); // when mystic is enchanted lore
     Material getMaterial();
@@ -58,7 +59,7 @@ public interface IMystic {
 
     enum MysticRequiredPantColor {
         RANDOM_FRESH,
-        RANDOM_ANY, // TODO: Implement
+        RANDOM_ANY, // TODO: Implementation
         SAME_COLOR
     }
 

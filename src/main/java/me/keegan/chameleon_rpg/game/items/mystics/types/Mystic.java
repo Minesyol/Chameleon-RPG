@@ -7,7 +7,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
+import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -15,6 +15,11 @@ public enum Mystic implements IMystic {
     DEFAULT {
         @Override
         public ItemStack setFreshData(ItemStack itemStack) {
+            return itemStack;
+        }
+
+        @Override
+        public ItemStack setEnchantedData(ItemStack itemStack) {
             return itemStack;
         }
 
@@ -75,7 +80,7 @@ public enum Mystic implements IMystic {
 
         @Override
         public List<ItemStack> getMysticWellPaneColors() {
-            return Arrays.asList(
+            return List.of(
                     new ItemStack(Material.PINK_STAINED_GLASS),
                     new ItemStack(Material.LIME_STAINED_GLASS),
                     new ItemStack(Material.YELLOW_STAINED_GLASS),
@@ -84,7 +89,7 @@ public enum Mystic implements IMystic {
 
         @Override
         public List<ChatColor> getTierColors(ChatColor chatColor) {
-            return Arrays.asList(
+            return List.of(
                     chatColor,
                     chatColor,
                     chatColor,
@@ -94,7 +99,7 @@ public enum Mystic implements IMystic {
 
         @Override
         public List<Integer> getMysticWellCost() {
-            return Arrays.asList(
+            return List.of(
                     1000,
                     4000,
                     8000
@@ -116,4 +121,177 @@ public enum Mystic implements IMystic {
             return true;
         }
     },
+
+    SWORD {
+        @Override
+        public ItemStack setFreshData(ItemStack itemStack) {
+            return itemStack;
+        }
+
+        @Override
+        public ItemStack setEnchantedData(ItemStack itemStack) {
+            return itemStack;
+        }
+
+        @Override
+        public List<String> getFreshLore(ChatColor chatColor) {
+            return new LoreBuilder()
+                    .write("Kept on death")
+                    .newLine()
+                    .newLine().write("Used in the mystic well")
+                    .build();
+        }
+
+        @Override
+        public List<String> getEnchantedLore(@Nullable ChatColor chatColor) {
+            return List.of();
+        }
+
+        @Override
+        public Material getMaterial() {
+            return Material.GOLDEN_SWORD;
+        }
+
+        @Override
+        public String getFreshPrefix() {
+            return "Mystic";
+        }
+
+        @Override
+        public String getName(ChatColor chatColor) {
+            return "Sword";
+        }
+
+        @Override
+        public String getEnumName() {
+            return this.name();
+        }
+
+        @Override
+        public MysticRequiredPantColor getRequiredPantColor() {
+            return MysticRequiredPantColor.RANDOM_FRESH;
+        }
+
+        @Override
+        public LinkedHashMap<ChatColor, Color> getPantColors() {
+            return new LinkedHashMap<>();
+        }
+
+        @Override
+        public List<ItemStack> getMysticWellPaneColors() {
+            return DEFAULT.getMysticWellPaneColors();
+        }
+
+        @Override
+        public List<ChatColor> getTierColors(@Nullable ChatColor chatColor) {
+            return List.of(
+                    ChatColor.YELLOW,
+                    ChatColor.GREEN,
+                    ChatColor.YELLOW,
+                    ChatColor.RED
+            );
+        }
+
+        @Override
+        public List<Integer> getMysticWellCost() {
+            return DEFAULT.getMysticWellCost();
+        }
+
+        @Override
+        public int getMaxTier() {
+            return 3;
+        }
+
+        @Override
+        public boolean requireSacrificeOnMaxTier() {
+            return true;
+        }
+
+        @Override
+        public boolean isStrongAsIron() {
+            return false;
+        }
+    },
+
+    BOW {
+        @Override
+        public ItemStack setFreshData(ItemStack itemStack) {
+            return itemStack;
+        }
+
+        @Override
+        public ItemStack setEnchantedData(ItemStack itemStack) {
+            return itemStack;
+        }
+
+        @Override
+        public List<String> getFreshLore(ChatColor chatColor) {
+            return SWORD.getFreshLore(chatColor);
+        }
+
+        @Override
+        public List<String> getEnchantedLore(@Nullable ChatColor chatColor) {
+            return List.of();
+        }
+
+        @Override
+        public Material getMaterial() {
+            return Material.BOW;
+        }
+
+        @Override
+        public String getFreshPrefix() {
+            return "Mystic";
+        }
+
+        @Override
+        public String getName(ChatColor chatColor) {
+            return "Bow";
+        }
+
+        @Override
+        public String getEnumName() {
+            return this.name();
+        }
+
+        @Override
+        public MysticRequiredPantColor getRequiredPantColor() {
+            return MysticRequiredPantColor.RANDOM_FRESH;
+        }
+
+        @Override
+        public LinkedHashMap<ChatColor, Color> getPantColors() {
+            return new LinkedHashMap<>();
+        }
+
+        @Override
+        public List<ItemStack> getMysticWellPaneColors() {
+            return DEFAULT.getMysticWellPaneColors();
+        }
+
+        @Override
+        public List<ChatColor> getTierColors(@Nullable ChatColor chatColor) {
+            return SWORD.getTierColors(chatColor);
+        }
+
+        @Override
+        public List<Integer> getMysticWellCost() {
+            return DEFAULT.getMysticWellCost();
+        }
+
+        @Override
+        public int getMaxTier() {
+            return 3;
+        }
+
+        @Override
+        public boolean requireSacrificeOnMaxTier() {
+            return true;
+        }
+
+        @Override
+        public boolean isStrongAsIron() {
+            return false;
+        }
+    }
 }

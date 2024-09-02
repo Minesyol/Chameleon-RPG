@@ -33,7 +33,7 @@ public final class MysticFactory {
         if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.RANDOM_FRESH) {
             requiredPantColor = Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))].toString();
         } else if (mystic.getRequiredPantColor() == IMystic.MysticRequiredPantColor.SAME_COLOR) {
-            assert chatColor != null : "ChatColor argument cannot be null when MysticRequiredPantColor is same color";
+            assert chatColor != null : "ChatColor argument cannot be null when MysticRequiredPantColor is " + mystic.getRequiredPantColor().name();
             requiredPantColor = chatColor.toString();
         } else {
             throw new RuntimeException(Inflector.getInstance().titleCase(mystic.getRequiredPantColor().name()) + " has not been implemented yet");
@@ -47,6 +47,8 @@ public final class MysticFactory {
         itemStack.setItemMeta(itemMeta);
 
         MysticUtils.saveMysticData(itemStack, customMystic);
+        itemStack = mystic.setFreshData(itemStack);
+
         return itemStack;
     }
 

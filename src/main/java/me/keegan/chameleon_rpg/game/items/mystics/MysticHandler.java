@@ -27,7 +27,7 @@ public class MysticHandler implements IChameleonListener {
         e.setCancelled(true);
     }
 
-    public static class MysticDrops implements IChameleonListener{
+    public static class MysticDrops implements IChameleonListener {
         /**
          *
          * @param player Player to send heads-up to
@@ -37,10 +37,14 @@ public class MysticHandler implements IChameleonListener {
         private void dropMystic(Player player, Location location) {
             location.add(0, 1, 0);
 
+            ItemStack mystic = Math.random() <= 0.5
+                    ? MysticFactory.createMystic(Mystic.DEFAULT, (ChatColor) Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))])
+                    : MysticFactory.createMystic(Math.random() <= 0.5 ? Mystic.SWORD : Mystic.BOW);
+
             World world = player.getWorld();
 
             world.spawnParticle(Particle.FALLING_WATER, location, 225, 0.3, 0.26, 0.3); // i = amount
-            world.dropItem(location, MysticFactory.createMystic(Mystic.DEFAULT, (ChatColor) Mystic.DEFAULT.getPantColors().keySet().toArray()[(new Random().nextInt(Mystic.DEFAULT.getPantColors().size() - 1))]));
+            world.dropItem(location, mystic);
         }
 
         @EventHandler

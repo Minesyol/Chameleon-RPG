@@ -32,7 +32,7 @@ public final class NightQuestController implements IChameleonPluginState {
 
                 if (!isNightTime) {
                     if (ongoingNightQuests.containsKey(uuid)) {
-                        ongoingNightQuests.get(uuid).sendMessage(player, "You ran out of time!");
+                        ongoingNightQuests.get(uuid).sendMessage(player, "Ran out of time!");
                     }
 
                     ongoingNightQuests.remove(uuid);
