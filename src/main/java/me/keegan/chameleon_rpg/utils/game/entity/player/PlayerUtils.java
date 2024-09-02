@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.game.player;
+package me.keegan.chameleon_rpg.utils.game.entity.player;
 
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;

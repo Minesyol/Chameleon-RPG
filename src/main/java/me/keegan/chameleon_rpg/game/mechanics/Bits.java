@@ -5,7 +5,7 @@ import me.keegan.chameleon_rpg.utils.classes.ChameleonHashMap;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
-import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
