@@ -5,7 +5,7 @@ import me.keegan.chameleon_rpg.game.items.IChameleonItem;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.game.tasks.TaskScheduler;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
-import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonIngredientWrapper;
 import me.keegan.chameleon_rpg.utils.game.namespacedkeys.ChameleonNamespacedKeys;
 import me.keegan.chameleon_rpg.utils.game.recipies.ChameleonRecipe;
