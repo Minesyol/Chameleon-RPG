@@ -3,7 +3,7 @@ package me.keegan.chameleon_rpg.game.player;
 import me.keegan.chameleon_rpg.game.mechanics.Bits;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
-import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
