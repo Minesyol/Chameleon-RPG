@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public enum Mystic implements IMystic {
+public enum MysticType implements IMystic {
     DEFAULT {
         @Override
         public ItemStack setFreshData(ItemStack itemStack) {
