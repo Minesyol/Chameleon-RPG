@@ -1,7 +1,7 @@
 package me.keegan.chameleon_rpg;
 
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
-import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
 import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
