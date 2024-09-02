@@ -3,7 +3,8 @@ package me.keegan.chameleon_rpg.utils.events.model.types;
 import lombok.Getter;
 import me.keegan.chameleon_rpg.utils.events.model.ChameleonEvent;
 import me.keegan.chameleon_rpg.utils.events.ChameleonEventService;
-import me.keegan.chameleon_rpg.utils.game.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.game.entity.ChameleonEquipmentHands;
+import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,15 +20,18 @@ import java.util.List;
  * and that player is a registered chameleon player
  */
 @Getter
-public final class EntityDeathByCPlayerCEvent extends ChameleonEvent<EntityDeathEvent> {
+public class EntityDeathByCPlayerCEvent extends ChameleonEvent<EntityDeathEvent> {
     private final LivingEntity victim;
+
     private final Player killer;
+    private final ChameleonEquipmentHands killerHands;
 
     public EntityDeathByCPlayerCEvent(@NonNull EntityDeathEvent e) {
         super(e);
 
-        this.victim = e.getEntity();
-        this.killer = e.getEntity().getKiller();
+        victim = e.getEntity();
+        killer = e.getEntity().getKiller();
+        killerHands = new ChameleonEquipmentHands(killer.getEquipment().getItemInMainHand(), killer.getEquipment().getItemInOffHand());
     }
 
     public List<ItemStack> getDrops() {
