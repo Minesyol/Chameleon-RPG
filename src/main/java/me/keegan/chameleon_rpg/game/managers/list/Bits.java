@@ -1,5 +1,6 @@
-package me.keegan.chameleon_rpg.game.mechanics;
+package me.keegan.chameleon_rpg.game.managers.list;
 
+import me.keegan.chameleon_rpg.game.managers.ChameleonManager;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.classes.ChameleonHashMap;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
@@ -13,13 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
 import java.util.HashMap;
+import java.util.UUID;
 
-public final class Bits implements IChameleonListener {
-    private static Bits instance;
+public final class BitsManager extends ChameleonManager implements IChameleonListener {
+    private static BitsManager instance;
 
-    public static Bits getInstance() {
+    public static BitsManager getInstance() {
         if (instance == null)
-            instance = new Bits();
+            instance = new BitsManager();
 
         return instance;
     }
@@ -29,6 +31,10 @@ public final class Bits implements IChameleonListener {
 
     private final int DEFAULT_BIT_REWARD = 2;
     private final int MAX_DEFAULT_BIT_REWARD = 15;
+
+    private BitsManager() {
+        super(1234);
+    }
 
     private int getCalculatedBits(EntityDeathByCPlayerCEvent e) {
         return (int) Math.clamp(instance.bitMap.get(e) * instance.bitMultiplierMap.getOrDefault(e, 1d), 0, Double.POSITIVE_INFINITY);

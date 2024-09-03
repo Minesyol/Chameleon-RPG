@@ -1,6 +1,6 @@
 package me.keegan.chameleon_rpg.game.player;
 
-import me.keegan.chameleon_rpg.game.mechanics.Bits;
+import me.keegan.chameleon_rpg.game.managers.list.BitsManager;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
@@ -60,8 +60,8 @@ public final class ChameleonPlayer implements Serializable, IChameleonListener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntityDeath(EntityDeathByCPlayerCEvent e) {
-        Bits.getInstance().markEntityDeath(e);
+    public void onEntityDeathByCPlayer(EntityDeathByCPlayerCEvent e) {
+        BitsManager.getInstance().markEntityDeath(e);
     }
 
     @EventHandler
