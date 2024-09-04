@@ -1,9 +1,9 @@
 package me.keegan.chameleon_rpg.game.managers.list;
 
+import lombok.Getter;
 import me.keegan.chameleon_rpg.game.managers.ChameleonManager;
 import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
-import me.keegan.chameleon_rpg.utils.classes.ChameleonHashMap;
-import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
+import me.keegan.chameleon_rpg.utils.objects.classes.ChameleonHashMap;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
@@ -14,30 +14,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
 import java.util.HashMap;
-import java.util.UUID;
 
-public final class BitsManager extends ChameleonManager implements IChameleonListener {
-    private static BitsManager instance;
-
-    public static BitsManager getInstance() {
-        if (instance == null)
-            instance = new BitsManager();
-
-        return instance;
-    }
-
-    private final ChameleonHashMap<EntityDeathByCPlayerCEvent, Integer> bitMap = new ChameleonHashMap<>();
-    private final HashMap<EntityDeathByCPlayerCEvent, Double> bitMultiplierMap = new HashMap<>();
+public final class BitsManager extends ChameleonManager {
+    private static final ChameleonHashMap<EntityDeathByCPlayerCEvent, Integer> bitMap = new ChameleonHashMap<>();
+    private static final HashMap<EntityDeathByCPlayerCEvent, Double> bitMultiplierMap = new HashMap<>();
 
     private final int DEFAULT_BIT_REWARD = 2;
     private final int MAX_DEFAULT_BIT_REWARD = 15;
 
-    private BitsManager() {
-        super(1234);
+    @Getter
+    private static BitsManager instance;
+
+    @Override
+    protected void defineInstance() {
+        instance = super.getInstance(this.getClass());
     }
 
+    private BitsManager() {}
+
     private int getCalculatedBits(EntityDeathByCPlayerCEvent e) {
-        return (int) Math.clamp(instance.bitMap.get(e) * instance.bitMultiplierMap.getOrDefault(e, 1d), 0, Double.POSITIVE_INFINITY);
+        return (int) Math.clamp(bitMap.get(e) * bitMultiplierMap.getOrDefault(e, 1d), 0, Double.POSITIVE_INFINITY);
     }
 
     public void markEntityDeath(EntityDeathByCPlayerCEvent e) {
@@ -56,7 +52,7 @@ public final class BitsManager extends ChameleonManager implements IChameleonLis
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDeath(EntityDeathByCPlayerCEvent e) {
         LivingEntity livingEntity = e.getVictim();
-        if (!instance.bitMap.containsKey(e)) { return; }
+        if (!bitMap.containsKey(e)) { return; }
 
         Player killer = e.getKiller();
 
