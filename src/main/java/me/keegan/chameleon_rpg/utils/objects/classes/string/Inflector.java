@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.keegan.chameleon_rpg.utils.classes.string;
+package me.keegan.chameleon_rpg.utils.objects.classes.string;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.HashSet;
