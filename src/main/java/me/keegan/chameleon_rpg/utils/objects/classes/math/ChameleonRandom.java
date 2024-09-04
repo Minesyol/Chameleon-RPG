@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.classes.math;
+package me.keegan.chameleon_rpg.utils.objects.classes.math;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
