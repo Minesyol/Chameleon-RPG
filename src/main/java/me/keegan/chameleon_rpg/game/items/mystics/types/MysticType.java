@@ -1,7 +1,7 @@
 package me.keegan.chameleon_rpg.game.items.mystics.types;
 
-import me.keegan.chameleon_rpg.utils.classes.builders.LoreBuilder;
-import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
+import me.keegan.chameleon_rpg.utils.objects.classes.builders.LoreBuilder;
+import me.keegan.chameleon_rpg.utils.objects.classes.string.Inflector;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
