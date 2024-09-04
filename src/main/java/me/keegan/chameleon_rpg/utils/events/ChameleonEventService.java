@@ -1,10 +1,9 @@
 package me.keegan.chameleon_rpg.utils.events;
 
 import com.google.gson.Gson;
-import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.utils.events.model.ChameleonEvent;
 import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
-import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
+import me.keegan.chameleon_rpg.utils.objects.interfaces.IChameleonPluginState;
 import org.bukkit.event.EventHandler;
 
 import java.lang.reflect.Method;
