@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.classes.builders;
+package me.keegan.chameleon_rpg.utils.objects.classes.builders;
 
 import org.bukkit.ChatColor;
 
