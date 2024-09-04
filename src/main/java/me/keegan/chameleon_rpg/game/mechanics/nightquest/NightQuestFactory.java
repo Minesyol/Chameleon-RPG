@@ -3,7 +3,7 @@ package me.keegan.chameleon_rpg.game.mechanics.nightquest;
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.model.NightQuestModel;
 import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
-import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
+import me.keegan.chameleon_rpg.utils.objects.interfaces.IChameleonPluginState;
 import org.bukkit.entity.Player;
 
 import java.util.*;
