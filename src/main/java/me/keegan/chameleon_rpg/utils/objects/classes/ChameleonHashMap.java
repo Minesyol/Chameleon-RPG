@@ -1,4 +1,4 @@
-package me.keegan.chameleon_rpg.utils.classes;
+package me.keegan.chameleon_rpg.utils.objects.classes;
 
 import java.util.HashMap;
 
