@@ -4,7 +4,7 @@ import me.keegan.chameleon_rpg.game.player.ChameleonPlayer;
 import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
 import me.keegan.chameleon_rpg.utils.game.recipies.IChameleonRecipe;
 import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
-import me.keegan.chameleon_rpg.utils.interfaces.IChameleonPluginState;
+import me.keegan.chameleon_rpg.utils.objects.interfaces.IChameleonPluginState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
