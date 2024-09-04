@@ -2,7 +2,7 @@ package me.keegan.chameleon_rpg.game.mechanics.nightquest.model;
 
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuestController;
-import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
+import me.keegan.chameleon_rpg.utils.objects.classes.math.ChameleonRandom;
 import me.keegan.chameleon_rpg.utils.events.IChameleonListener;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import org.bukkit.ChatColor;
