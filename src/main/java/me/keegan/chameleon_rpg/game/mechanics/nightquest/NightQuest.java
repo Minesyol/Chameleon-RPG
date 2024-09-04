@@ -1,6 +1,6 @@
 package me.keegan.chameleon_rpg.game.mechanics.nightquest;
 
-import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
+import me.keegan.chameleon_rpg.utils.objects.classes.math.ChameleonRandom;
 
 /**
  * The real quest class; not a model to control
