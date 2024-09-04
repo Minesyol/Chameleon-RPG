@@ -3,7 +3,7 @@ package me.keegan.chameleon_rpg.game.items.mystics;
 import me.keegan.chameleon_rpg.game.items.mystics.data.CustomMystic;
 import me.keegan.chameleon_rpg.game.items.mystics.types.IMystic;
 import me.keegan.chameleon_rpg.game.items.mystics.types.MysticType;
-import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
+import me.keegan.chameleon_rpg.utils.objects.classes.string.Inflector;
 import me.keegan.chameleon_rpg.utils.game.items.MysticUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.bukkit.ChatColor;
