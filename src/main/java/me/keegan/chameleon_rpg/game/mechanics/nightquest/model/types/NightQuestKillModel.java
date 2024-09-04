@@ -2,8 +2,8 @@ package me.keegan.chameleon_rpg.game.mechanics.nightquest.model.types;
 
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.NightQuest;
 import me.keegan.chameleon_rpg.game.mechanics.nightquest.model.NightQuestModel;
-import me.keegan.chameleon_rpg.utils.classes.math.ChameleonRandom;
-import me.keegan.chameleon_rpg.utils.classes.string.Inflector;
+import me.keegan.chameleon_rpg.utils.objects.classes.math.ChameleonRandom;
+import me.keegan.chameleon_rpg.utils.objects.classes.string.Inflector;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
