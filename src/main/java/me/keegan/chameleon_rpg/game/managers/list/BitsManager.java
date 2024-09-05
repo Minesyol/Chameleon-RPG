@@ -7,6 +7,7 @@ import me.keegan.chameleon_rpg.utils.objects.classes.ChameleonHashMap;
 import me.keegan.chameleon_rpg.utils.events.model.types.EntityDeathByCPlayerCEvent;
 import me.keegan.chameleon_rpg.utils.game.ChameleonChat;
 import me.keegan.chameleon_rpg.utils.game.entity.player.PlayerUtils;
+import me.keegan.chameleon_rpg.utils.objects.classes.singleton.StaticInstance;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,12 +24,8 @@ public final class BitsManager extends ChameleonManager {
     private final int MAX_DEFAULT_BIT_REWARD = 15;
 
     @Getter
+    @StaticInstance
     private static BitsManager instance;
-
-    @Override
-    protected void defineInstance() {
-        instance = super.getInstance(this.getClass());
-    }
 
     private BitsManager() {}
 
