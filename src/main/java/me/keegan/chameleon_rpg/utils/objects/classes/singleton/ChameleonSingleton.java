@@ -36,21 +36,10 @@ public class ChameleonSingleton<T> implements IChameleonPluginState {
     // call this with super when overriding
     @Override
     public void onPluginEnable() {
-        for (Field field : getClass().getDeclaredFields()) {
-            if (!field.isAnnotationPresent(StaticInstance.class) || !Modifier.isStatic(field.getModifiers())) { continue; }
-            field.setAccessible(true);
-
-            try {
-                // just pray please it's not possible to fix unless I pass the T generic as a param
-                field.set(null, getInstance((Class<? extends T>) field.getDeclaringClass()));
-            }catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
         try {
             ChameleonSingleton<?> chameleonSingleton = new ByteBuddy()
-                    .subclass(ChameleonSingleton.class)
+                    //.subclass(ChameleonSingleton.class) // an anonymous class that has the ChameleonSingleton as its super
+                    .rebase(ChameleonSingleton.class)// rebases the original class so that all new instances will have all the changes
                     .method(named("toString"))
                     .intercept(FixedValue.value("THIS WORKS WTTTF"))
                     .make()
@@ -62,6 +51,18 @@ public class ChameleonSingleton<T> implements IChameleonPluginState {
             ChameleonRPG.info(chameleonSingleton.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+
+        for (Field field : getClass().getDeclaredFields()) {
+            if (!field.isAnnotationPresent(StaticInstance.class) || !Modifier.isStatic(field.getModifiers())) { continue; }
+            field.setAccessible(true);
+
+            try {
+                // just pray please it's not possible to fix unless I pass the T generic as a param
+                field.set(null, getInstance((Class<? extends T>) field.getDeclaringClass()));
+            }catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
