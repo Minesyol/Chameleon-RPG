@@ -1,13 +1,21 @@
 package me.keegan.chameleon_rpg.utils.objects.classes.singleton;
 
 import com.google.gson.Gson;
+import javassist.*;
 import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.utils.files.registeries.Registries;
 import me.keegan.chameleon_rpg.utils.objects.interfaces.IChameleonPluginState;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.description.modifier.ModifierContributor;
+import net.bytebuddy.implementation.FixedValue;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+
+import static net.bytebuddy.matcher.ElementMatchers.named;
 
 public class ChameleonSingleton<T> implements IChameleonPluginState {
     private final HashMap<String, T> instanceMap = new HashMap<>();
@@ -38,6 +46,22 @@ public class ChameleonSingleton<T> implements IChameleonPluginState {
             }catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        try {
+            ChameleonSingleton<?> chameleonSingleton = new ByteBuddy()
+                    .subclass(ChameleonSingleton.class)
+                    .method(named("toString"))
+                    .intercept(FixedValue.value("THIS WORKS WTTTF"))
+                    .make()
+                    .load(ChameleonSingleton.class.getClassLoader())
+                    .getLoaded()
+                    .getDeclaredConstructor().newInstance();
+
+            ChameleonRPG.info(chameleonSingleton.getClass().getName());
+            ChameleonRPG.info(chameleonSingleton.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
