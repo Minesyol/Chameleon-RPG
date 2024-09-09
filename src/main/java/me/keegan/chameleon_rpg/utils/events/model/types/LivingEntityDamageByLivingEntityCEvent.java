@@ -17,14 +17,20 @@ public class LivingEntityDamageByLivingEntityCEvent extends ChameleonEvent<Entit
     public LivingEntityDamageByLivingEntityCEvent(EntityDamageByEntityEvent e) {
         super(e);
 
-        attacker = (LivingEntity) e.getDamager();
-        victim = (LivingEntity) e.getEntity();
-        attackerHands = new ChameleonEquipmentHands(attacker.getEquipment().getItemInMainHand(), attacker.getEquipment().getItemInOffHand());
+        this.attacker = (LivingEntity) e.getDamager();
+        this.victim = (LivingEntity) e.getEntity();
+        this.attackerHands = new ChameleonEquipmentHands(attacker.getEquipment().getItemInMainHand(), attacker.getEquipment().getItemInOffHand());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        if (!(e.getDamager() instanceof LivingEntity || e.getEntity() instanceof LivingEntity)) { return; }
+        /*
+         * Comparing the class is necessary because other classes inherit
+         * from this, which can call the event twice.
+         */
+        if (!(e.getDamager() instanceof LivingEntity
+                || e.getEntity() instanceof LivingEntity
+                || this.getClass().equals(LivingEntityDamageByLivingEntityCEvent.class))) { return; }
         ChameleonEventService.callEvent(new LivingEntityDamageByLivingEntityCEvent(e));
     }
 }

@@ -29,9 +29,9 @@ public class EntityDeathByCPlayerCEvent extends ChameleonEvent<EntityDeathEvent>
     public EntityDeathByCPlayerCEvent(@NonNull EntityDeathEvent e) {
         super(e);
 
-        victim = e.getEntity();
-        killer = e.getEntity().getKiller();
-        killerHands = new ChameleonEquipmentHands(killer.getEquipment().getItemInMainHand(), killer.getEquipment().getItemInOffHand());
+        this.victim = e.getEntity();
+        this.killer = e.getEntity().getKiller();
+        this.killerHands = new ChameleonEquipmentHands(killer.getEquipment().getItemInMainHand(), killer.getEquipment().getItemInOffHand());
     }
 
     public List<ItemStack> getDrops() {
