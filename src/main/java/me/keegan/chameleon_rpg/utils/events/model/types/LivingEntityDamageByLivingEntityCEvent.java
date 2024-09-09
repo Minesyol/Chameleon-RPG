@@ -14,15 +14,15 @@ public class LivingEntityDamageByLivingEntityCEvent extends ChameleonEvent<Entit
     private final LivingEntity attacker;
     private final LivingEntity victim;
 
-    public LivingEntityDamageByLivingEntityCEvent(EntityDamageByEntityEvent event) {
-        super(event);
+    public LivingEntityDamageByLivingEntityCEvent(EntityDamageByEntityEvent e) {
+        super(e);
 
-        attacker = (LivingEntity) event.getDamager();
-        victim = (LivingEntity) event.getEntity();
+        attacker = (LivingEntity) e.getDamager();
+        victim = (LivingEntity) e.getEntity();
         attackerHands = new ChameleonEquipmentHands(attacker.getEquipment().getItemInMainHand(), attacker.getEquipment().getItemInOffHand());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof LivingEntity || e.getEntity() instanceof LivingEntity)) { return; }
         ChameleonEventService.callEvent(new LivingEntityDamageByLivingEntityCEvent(e));
