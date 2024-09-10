@@ -7,8 +7,6 @@ import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.matcher.ElementMatchers;
 
-import java.util.HashMap;
-
 public class ChameleonManager extends ChameleonSingleton<ChameleonManager> implements IChameleonListener {
     protected final void test() {
         try {
