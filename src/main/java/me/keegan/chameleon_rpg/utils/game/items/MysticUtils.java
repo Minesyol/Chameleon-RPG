@@ -31,12 +31,15 @@ public final class MysticUtils {
         return ChameleonNamespacedKeys.getNamespacedValue(ChameleonNamespacedKeys.MYSTIC_ITEMSTACK_KEY, PersistentDataType.STRING, itemStack.getItemMeta().getPersistentDataContainer()) != null;
     }
 
-    // TODO
     public static int getEnchantLevel(@NonNull ItemStack itemStack, @NonNull AMysticEnchant mysticEnchant) {
-        return -1;
+        return getMysticData(itemStack).getMysticEnchants().get(mysticEnchant.getUniqueName());
     }
 
-    public static void addEnchant(@NonNull ItemStack itemStack) {
+    public static void addEnchant(@NonNull ItemStack itemStack, @NonNull AMysticEnchant mysticEnchant, boolean requireCompatibility) {
+
+    }
+
+    public static void removeEnchant(@NonNull ItemStack itemStack, AMysticEnchant mysticEnchant) {
 
     }
 }
