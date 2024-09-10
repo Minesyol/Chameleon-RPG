@@ -14,7 +14,13 @@ import org.bukkit.entity.LivingEntity;
 @Getter
 public final class LivingEntityDamageProfile {
     private double damage, reducedDamage, multipliedDamage, trueDamage;
+    private double maxDamage;
+
     private final LivingEntity victim;
+
+    {
+        maxDamage = Double.POSITIVE_INFINITY;
+    }
 
     public LivingEntityDamageProfile(LivingEntity victim) {
         this.victim = victim;
@@ -37,6 +43,11 @@ public final class LivingEntityDamageProfile {
 
     public LivingEntityDamageProfile addTrueDamage(double trueDamage) {
         this.trueDamage += trueDamage;
+        return this;
+    }
+
+    public LivingEntityDamageProfile setMaxDamage(double maxDamage) {
+        this.maxDamage = maxDamage;
         return this;
     }
 }
