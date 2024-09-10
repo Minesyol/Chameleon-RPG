@@ -2,12 +2,15 @@ package me.keegan.chameleon_rpg.game.items.mystics.enchants.sword;
 
 import me.keegan.chameleon_rpg.game.items.mystics.enchants.AMysticEnchant;
 import me.keegan.chameleon_rpg.game.items.mystics.types.MysticType;
+import me.keegan.chameleon_rpg.game.managers.list.damage.DamageManager;
 import me.keegan.chameleon_rpg.utils.events.model.types.LivingEntityDamageByLivingEntityCEvent;
 import org.bukkit.event.EventHandler;
 
 import java.util.Set;
 
 public class SharpEnchant extends AMysticEnchant {
+    private final int[] sharpDamagePerLevel = {7, 14, 22};
+
     @Override
     public Set<String> getCommandNames() {
         return Set.of("Sharp", "Sharpness");
@@ -60,12 +63,12 @@ public class SharpEnchant extends AMysticEnchant {
 
     @Override
     public void execute(int level, Object[] args) {
-
+        DamageManager.getInstance().getDamageProfile((LivingEntityDamageByLivingEntityCEvent) args[0]).addDamage(sharpDamagePerLevel[level]);
     }
 
     @EventHandler
     public void onLivingEntityDamageByLivingEntity(LivingEntityDamageByLivingEntityCEvent e) {
         if (!e.getAttackerHands().mainHand().hasItemMeta()) { return; }
-        attemptEnchantExecution(e.getAttackerHands().mainHand(), this, e);
+        super.attemptEnchantExecution(e.getAttackerHands().mainHand(), this, e, e);
     }
 }
