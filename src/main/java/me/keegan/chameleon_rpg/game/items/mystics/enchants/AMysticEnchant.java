@@ -48,6 +48,7 @@ public abstract class AMysticEnchant implements IChameleonListener {
      * Event param is passed because we might need to do things with it later
      */
     protected final void attemptEnchantExecution(@NonNull ItemStack itemStack, @NonNull AMysticEnchant mysticEnchant, @NonNull Event e, Object... args) {
-        execute(MysticUtils.getEnchantLevel(itemStack, mysticEnchant), args);
+        if (!MysticUtils.isMystic(itemStack)) { return; }
+        this.execute(MysticUtils.getEnchantLevel(itemStack, mysticEnchant), args);
     }
 }
