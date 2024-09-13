@@ -271,7 +271,12 @@ public enum MysticType implements IMystic {
 
         @Override
         public List<ChatColor> getTierColors(@Nullable ChatColor chatColor) {
-            return SWORD.getTierColors(chatColor);
+            return List.of(
+                    ChatColor.AQUA,
+                    ChatColor.GREEN,
+                    ChatColor.YELLOW,
+                    ChatColor.RED
+            );
         }
 
         @Override

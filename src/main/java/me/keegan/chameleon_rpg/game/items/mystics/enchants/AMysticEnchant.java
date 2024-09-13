@@ -9,6 +9,7 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class AMysticEnchant implements IChameleonListener {
@@ -18,7 +19,7 @@ public abstract class AMysticEnchant implements IChameleonListener {
     public abstract EnchantGroup getEnchantGroup();
     public abstract Set<EnchantType> getEnchantTypes();
     public abstract Set<MysticType> getMysticTypes();
-    public abstract Set<String> getDescription(int level);
+    public abstract List<String> getDescription(int level);
     public abstract int getMaxLevel();
     public abstract boolean isRare();
     public abstract boolean isMysticWellAccessible();

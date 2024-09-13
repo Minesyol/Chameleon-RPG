@@ -1,6 +1,7 @@
 package me.keegan.chameleon_rpg.game.managers.list.damage;
 
 import lombok.Getter;
+import me.keegan.chameleon_rpg.ChameleonRPG;
 import me.keegan.chameleon_rpg.game.managers.ChameleonManager;
 import me.keegan.chameleon_rpg.utils.events.model.types.LivingEntityDamageByLivingEntityCEvent;
 import me.keegan.chameleon_rpg.utils.objects.classes.singleton.StaticInstance;
@@ -66,6 +67,8 @@ public final class DamageManager extends ChameleonManager {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLivingEntityDamageByLivingEntity(LivingEntityDamageByLivingEntityCEvent e) {
-        // todo
+        double damage = this.calculateDamage(e);
+        ChameleonRPG.info(damage + " damage");
+        ChameleonRPG.info(e.getFinalDamage() + " final damage");
     }
 }
